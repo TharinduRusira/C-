@@ -63,10 +63,7 @@
      TLSB = 281,
      TRSB = 282,
      TLCB = 283,
-     TRCB = 284,
-     TCS = 285,
-     TCE = 286,
-     TEMPTY = 287
+     TRCB = 284
    };
 #endif
 
@@ -77,7 +74,7 @@ typedef union YYSTYPE
 {
 
 /* Line 2068 of yacc.c  */
-#line 15 "cminusparser.y"
+#line 17 "cminusparser.y"
 
 	int ival;
 	char* sval;
@@ -85,7 +82,7 @@ typedef union YYSTYPE
 
 
 /* Line 2068 of yacc.c  */
-#line 89 "cminusparser.tab.h"
+#line 86 "cminusparser.tab.h"
 } YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */

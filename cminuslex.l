@@ -4,11 +4,14 @@
 #include <iostream>
 #include <string>
 
+
 using namespace std;
 
 #define YY_DECL extern "C" int yylex()
 
 #include "cminusparser.tab.h"
+void lineincrement();
+int linenum = 1;
 %}
 
 /* Rules Section */
@@ -23,12 +26,15 @@ using namespace std;
 
 [a-zA-Z][a-zA-Z]* {printf("ID ");return ID;}
 [0-9][0-9]* {printf("NUM ");return NUM;}
-[ /t/n] ;
+[ \t] ;
+\n {++linenum;}
+"/*"(.|[\r\n])*"*/" ; {lineincrement(); printf("COMMENT_REMOVED ");}//remove comments
+
 
 "+" {printf("TPLUS "); return TPLUS;} //plus
 "-" {printf("TMINUS ");return TMINUS;} //minus
 "*" {printf("TMUL ");return TMUL;} // multiplication
-"//" {printf("TDIV ");return TDIV;} // division
+"/" {printf("TDIV ");return TDIV;} // division
 "<" {printf("TLT ");return TLT;} // less than
 "<=" {printf("TLTE ");return TLTE;} // less than or equal
 ">" {printf("TGT ");return TGT;} // greater than
@@ -44,12 +50,17 @@ using namespace std;
 "]" {printf("TRSB ");return TRSB;} // right square bracket
 "{" {printf("TLCB ");return TLCB;} // left curly bracket
 "}" {printf("TRCB ");return TRCB;} //right curly bracket
-"/*" {printf("TCS ");return TCS;} // comment start
-"*/" {printf("TCE ");return TCE;} // comment end
-"" {printf("TEMPTY ");return TEMPTY;} //empty string
 . printf("Invalid TOKEN ");
 
 %%
 
-
+void lineincrement(){
+	int i=0;
+	while(i < (sizeof(yytext)/sizeof(yytext[0]))){
+		if(yytext[i] == '\n'){
+			linenum ++;	
+		}
+		i++;
+	}
+}
 
