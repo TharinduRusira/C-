@@ -1,0 +1,1247 @@
+Terminals unused in grammar
+
+   TCS
+   TCE
+
+
+Grammar
+
+    0 $accept: program $end
+
+    1 program: declaration-list
+
+    2 declaration-list: declaration-list declaration
+    3                 | declaration
+
+    4 declaration: var-declaration
+    5            | fun-declaration
+
+    6 var-declaration: type-specifier ID TCOL
+    7                | type-specifier ID TLSB NUM TLSB TCOL
+
+    8 type-specifier: TINT
+    9               | TVOID
+
+   10 fun-declaration: type-specifier ID TLP params TRP compound-stmt
+
+   11 params: param-list
+   12       | TVOID
+
+   13 param-list: param-list TCOM param
+   14           | param
+
+   15 param: type-specifier ID
+   16      | type-specifier ID TLSB TRSB
+
+   17 compound-stmt: TLCB local-declarations statement-list TRCB
+
+   18 local-declarations: local-declarations var-declaration
+   19                   | TEMPTY
+
+   20 statement-list: statement-list statement
+   21               | TEMPTY
+
+   22 statement: expression-stmt
+   23          | compound-stmt
+   24          | selection-stmt
+   25          | iteration-stmt
+   26          | return-stmt
+
+   27 expression-stmt: expression TCOL
+   28                | TCOL
+
+   29 selection-stmt: TIF TLP expression TRP statement subselection-stmt
+
+   30 subselection-stmt: TEMPTY
+   31                  | TELSE statement
+
+   32 iteration-stmt: TWHILE TLP expression TRP statement
+
+   33 return-stmt: TRETURN TCOL
+   34            | TRETURN expression TCOL
+
+   35 expression: var TASSIGN expression
+   36           | simple-expression
+
+   37 var: ID
+   38    | ID TLSB expression TRSB
+
+   39 simple-expression: additive-expression relop additive-expression
+   40                  | additive-expression
+
+   41 relop: TLTE
+   42      | TLT
+   43      | TGT
+   44      | TGTE
+   45      | TEQ
+   46      | TNEQ
+
+   47 additive-expression: additive-expression addop term
+   48                    | term
+
+   49 addop: TPLUS
+   50      | TMINUS
+
+   51 term: term mulop factor
+   52     | factor
+
+   53 mulop: TMUL
+   54      | TDIV
+
+   55 factor: TLP expression TRP
+   56       | var
+   57       | call
+   58       | NUM
+
+   59 call: ID TLP args TRP
+
+   60 args: arg-list
+   61     | TEMPTY
+
+   62 arg-list: arg-list TCOM expression
+   63         | expression
+
+
+Terminals, with rules where they appear
+
+$end (0) 0
+error (256)
+NUM (258) 7 58
+ID (259) 6 7 10 15 16 37 38 59
+TELSE (260) 31
+TIF (261) 29
+TINT (262) 8
+TRETURN (263) 33 34
+TVOID (264) 9 12
+TWHILE (265) 32
+TPLUS (266) 49
+TMINUS (267) 50
+TMUL (268) 53
+TDIV (269) 54
+TLT (270) 42
+TLTE (271) 41
+TGT (272) 43
+TGTE (273) 44
+TEQ (274) 45
+TNEQ (275) 46
+TASSIGN (276) 35
+TCOL (277) 6 7 27 28 33 34
+TCOM (278) 13 62
+TLP (279) 10 29 32 55 59
+TRP (280) 10 29 32 55 59
+TLSB (281) 7 16 38
+TRSB (282) 16 38
+TLCB (283) 17
+TRCB (284) 17
+TCS (285)
+TCE (286)
+TEMPTY (287) 19 21 30 61
+
+
+Nonterminals, with rules where they appear
+
+$accept (33)
+    on left: 0
+program (34)
+    on left: 1, on right: 0
+declaration-list (35)
+    on left: 2 3, on right: 1 2
+declaration (36)
+    on left: 4 5, on right: 2 3
+var-declaration (37)
+    on left: 6 7, on right: 4 18
+type-specifier (38)
+    on left: 8 9, on right: 6 7 10 15 16
+fun-declaration (39)
+    on left: 10, on right: 5
+params (40)
+    on left: 11 12, on right: 10
+param-list (41)
+    on left: 13 14, on right: 11 13
+param (42)
+    on left: 15 16, on right: 13 14
+compound-stmt (43)
+    on left: 17, on right: 10 23
+local-declarations (44)
+    on left: 18 19, on right: 17 18
+statement-list (45)
+    on left: 20 21, on right: 17 20
+statement (46)
+    on left: 22 23 24 25 26, on right: 20 29 31 32
+expression-stmt (47)
+    on left: 27 28, on right: 22
+selection-stmt (48)
+    on left: 29, on right: 24
+subselection-stmt (49)
+    on left: 30 31, on right: 29
+iteration-stmt (50)
+    on left: 32, on right: 25
+return-stmt (51)
+    on left: 33 34, on right: 26
+expression (52)
+    on left: 35 36, on right: 27 29 32 34 35 38 55 62 63
+var (53)
+    on left: 37 38, on right: 35 56
+simple-expression (54)
+    on left: 39 40, on right: 36
+relop (55)
+    on left: 41 42 43 44 45 46, on right: 39
+additive-expression (56)
+    on left: 47 48, on right: 39 40 47
+addop (57)
+    on left: 49 50, on right: 47
+term (58)
+    on left: 51 52, on right: 47 48 51
+mulop (59)
+    on left: 53 54, on right: 51
+factor (60)
+    on left: 55 56 57 58, on right: 51 52
+call (61)
+    on left: 59, on right: 57
+args (62)
+    on left: 60 61, on right: 59
+arg-list (63)
+    on left: 62 63, on right: 60 62
+
+
+state 0
+
+    0 $accept: . program $end
+
+    TINT   shift, and go to state 1
+    TVOID  shift, and go to state 2
+
+    program           go to state 3
+    declaration-list  go to state 4
+    declaration       go to state 5
+    var-declaration   go to state 6
+    type-specifier    go to state 7
+    fun-declaration   go to state 8
+
+
+state 1
+
+    8 type-specifier: TINT .
+
+    $default  reduce using rule 8 (type-specifier)
+
+
+state 2
+
+    9 type-specifier: TVOID .
+
+    $default  reduce using rule 9 (type-specifier)
+
+
+state 3
+
+    0 $accept: program . $end
+
+    $end  shift, and go to state 9
+
+
+state 4
+
+    1 program: declaration-list .
+    2 declaration-list: declaration-list . declaration
+
+    TINT   shift, and go to state 1
+    TVOID  shift, and go to state 2
+
+    $default  reduce using rule 1 (program)
+
+    declaration      go to state 10
+    var-declaration  go to state 6
+    type-specifier   go to state 7
+    fun-declaration  go to state 8
+
+
+state 5
+
+    3 declaration-list: declaration .
+
+    $default  reduce using rule 3 (declaration-list)
+
+
+state 6
+
+    4 declaration: var-declaration .
+
+    $default  reduce using rule 4 (declaration)
+
+
+state 7
+
+    6 var-declaration: type-specifier . ID TCOL
+    7                | type-specifier . ID TLSB NUM TLSB TCOL
+   10 fun-declaration: type-specifier . ID TLP params TRP compound-stmt
+
+    ID  shift, and go to state 11
+
+
+state 8
+
+    5 declaration: fun-declaration .
+
+    $default  reduce using rule 5 (declaration)
+
+
+state 9
+
+    0 $accept: program $end .
+
+    $default  accept
+
+
+state 10
+
+    2 declaration-list: declaration-list declaration .
+
+    $default  reduce using rule 2 (declaration-list)
+
+
+state 11
+
+    6 var-declaration: type-specifier ID . TCOL
+    7                | type-specifier ID . TLSB NUM TLSB TCOL
+   10 fun-declaration: type-specifier ID . TLP params TRP compound-stmt
+
+    TCOL  shift, and go to state 12
+    TLP   shift, and go to state 13
+    TLSB  shift, and go to state 14
+
+
+state 12
+
+    6 var-declaration: type-specifier ID TCOL .
+
+    $default  reduce using rule 6 (var-declaration)
+
+
+state 13
+
+   10 fun-declaration: type-specifier ID TLP . params TRP compound-stmt
+
+    TINT   shift, and go to state 1
+    TVOID  shift, and go to state 15
+
+    type-specifier  go to state 16
+    params          go to state 17
+    param-list      go to state 18
+    param           go to state 19
+
+
+state 14
+
+    7 var-declaration: type-specifier ID TLSB . NUM TLSB TCOL
+
+    NUM  shift, and go to state 20
+
+
+state 15
+
+    9 type-specifier: TVOID .
+   12 params: TVOID .
+
+    TRP       reduce using rule 12 (params)
+    $default  reduce using rule 9 (type-specifier)
+
+
+state 16
+
+   15 param: type-specifier . ID
+   16      | type-specifier . ID TLSB TRSB
+
+    ID  shift, and go to state 21
+
+
+state 17
+
+   10 fun-declaration: type-specifier ID TLP params . TRP compound-stmt
+
+    TRP  shift, and go to state 22
+
+
+state 18
+
+   11 params: param-list .
+   13 param-list: param-list . TCOM param
+
+    TCOM  shift, and go to state 23
+
+    $default  reduce using rule 11 (params)
+
+
+state 19
+
+   14 param-list: param .
+
+    $default  reduce using rule 14 (param-list)
+
+
+state 20
+
+    7 var-declaration: type-specifier ID TLSB NUM . TLSB TCOL
+
+    TLSB  shift, and go to state 24
+
+
+state 21
+
+   15 param: type-specifier ID .
+   16      | type-specifier ID . TLSB TRSB
+
+    TLSB  shift, and go to state 25
+
+    $default  reduce using rule 15 (param)
+
+
+state 22
+
+   10 fun-declaration: type-specifier ID TLP params TRP . compound-stmt
+
+    TLCB  shift, and go to state 26
+
+    compound-stmt  go to state 27
+
+
+state 23
+
+   13 param-list: param-list TCOM . param
+
+    TINT   shift, and go to state 1
+    TVOID  shift, and go to state 2
+
+    type-specifier  go to state 16
+    param           go to state 28
+
+
+state 24
+
+    7 var-declaration: type-specifier ID TLSB NUM TLSB . TCOL
+
+    TCOL  shift, and go to state 29
+
+
+state 25
+
+   16 param: type-specifier ID TLSB . TRSB
+
+    TRSB  shift, and go to state 30
+
+
+state 26
+
+   17 compound-stmt: TLCB . local-declarations statement-list TRCB
+
+    TEMPTY  shift, and go to state 31
+
+    local-declarations  go to state 32
+
+
+state 27
+
+   10 fun-declaration: type-specifier ID TLP params TRP compound-stmt .
+
+    $default  reduce using rule 10 (fun-declaration)
+
+
+state 28
+
+   13 param-list: param-list TCOM param .
+
+    $default  reduce using rule 13 (param-list)
+
+
+state 29
+
+    7 var-declaration: type-specifier ID TLSB NUM TLSB TCOL .
+
+    $default  reduce using rule 7 (var-declaration)
+
+
+state 30
+
+   16 param: type-specifier ID TLSB TRSB .
+
+    $default  reduce using rule 16 (param)
+
+
+state 31
+
+   19 local-declarations: TEMPTY .
+
+    $default  reduce using rule 19 (local-declarations)
+
+
+state 32
+
+   17 compound-stmt: TLCB local-declarations . statement-list TRCB
+   18 local-declarations: local-declarations . var-declaration
+
+    TINT    shift, and go to state 1
+    TVOID   shift, and go to state 2
+    TEMPTY  shift, and go to state 33
+
+    var-declaration  go to state 34
+    type-specifier   go to state 35
+    statement-list   go to state 36
+
+
+state 33
+
+   21 statement-list: TEMPTY .
+
+    $default  reduce using rule 21 (statement-list)
+
+
+state 34
+
+   18 local-declarations: local-declarations var-declaration .
+
+    $default  reduce using rule 18 (local-declarations)
+
+
+state 35
+
+    6 var-declaration: type-specifier . ID TCOL
+    7                | type-specifier . ID TLSB NUM TLSB TCOL
+
+    ID  shift, and go to state 37
+
+
+state 36
+
+   17 compound-stmt: TLCB local-declarations statement-list . TRCB
+   20 statement-list: statement-list . statement
+
+    NUM      shift, and go to state 38
+    ID       shift, and go to state 39
+    TIF      shift, and go to state 40
+    TRETURN  shift, and go to state 41
+    TWHILE   shift, and go to state 42
+    TCOL     shift, and go to state 43
+    TLP      shift, and go to state 44
+    TLCB     shift, and go to state 26
+    TRCB     shift, and go to state 45
+
+    compound-stmt        go to state 46
+    statement            go to state 47
+    expression-stmt      go to state 48
+    selection-stmt       go to state 49
+    iteration-stmt       go to state 50
+    return-stmt          go to state 51
+    expression           go to state 52
+    var                  go to state 53
+    simple-expression    go to state 54
+    additive-expression  go to state 55
+    term                 go to state 56
+    factor               go to state 57
+    call                 go to state 58
+
+
+state 37
+
+    6 var-declaration: type-specifier ID . TCOL
+    7                | type-specifier ID . TLSB NUM TLSB TCOL
+
+    TCOL  shift, and go to state 12
+    TLSB  shift, and go to state 14
+
+
+state 38
+
+   58 factor: NUM .
+
+    $default  reduce using rule 58 (factor)
+
+
+state 39
+
+   37 var: ID .
+   38    | ID . TLSB expression TRSB
+   59 call: ID . TLP args TRP
+
+    TLP   shift, and go to state 59
+    TLSB  shift, and go to state 60
+
+    $default  reduce using rule 37 (var)
+
+
+state 40
+
+   29 selection-stmt: TIF . TLP expression TRP statement subselection-stmt
+
+    TLP  shift, and go to state 61
+
+
+state 41
+
+   33 return-stmt: TRETURN . TCOL
+   34            | TRETURN . expression TCOL
+
+    NUM   shift, and go to state 38
+    ID    shift, and go to state 39
+    TCOL  shift, and go to state 62
+    TLP   shift, and go to state 44
+
+    expression           go to state 63
+    var                  go to state 53
+    simple-expression    go to state 54
+    additive-expression  go to state 55
+    term                 go to state 56
+    factor               go to state 57
+    call                 go to state 58
+
+
+state 42
+
+   32 iteration-stmt: TWHILE . TLP expression TRP statement
+
+    TLP  shift, and go to state 64
+
+
+state 43
+
+   28 expression-stmt: TCOL .
+
+    $default  reduce using rule 28 (expression-stmt)
+
+
+state 44
+
+   55 factor: TLP . expression TRP
+
+    NUM  shift, and go to state 38
+    ID   shift, and go to state 39
+    TLP  shift, and go to state 44
+
+    expression           go to state 65
+    var                  go to state 53
+    simple-expression    go to state 54
+    additive-expression  go to state 55
+    term                 go to state 56
+    factor               go to state 57
+    call                 go to state 58
+
+
+state 45
+
+   17 compound-stmt: TLCB local-declarations statement-list TRCB .
+
+    $default  reduce using rule 17 (compound-stmt)
+
+
+state 46
+
+   23 statement: compound-stmt .
+
+    $default  reduce using rule 23 (statement)
+
+
+state 47
+
+   20 statement-list: statement-list statement .
+
+    $default  reduce using rule 20 (statement-list)
+
+
+state 48
+
+   22 statement: expression-stmt .
+
+    $default  reduce using rule 22 (statement)
+
+
+state 49
+
+   24 statement: selection-stmt .
+
+    $default  reduce using rule 24 (statement)
+
+
+state 50
+
+   25 statement: iteration-stmt .
+
+    $default  reduce using rule 25 (statement)
+
+
+state 51
+
+   26 statement: return-stmt .
+
+    $default  reduce using rule 26 (statement)
+
+
+state 52
+
+   27 expression-stmt: expression . TCOL
+
+    TCOL  shift, and go to state 66
+
+
+state 53
+
+   35 expression: var . TASSIGN expression
+   56 factor: var .
+
+    TASSIGN  shift, and go to state 67
+
+    $default  reduce using rule 56 (factor)
+
+
+state 54
+
+   36 expression: simple-expression .
+
+    $default  reduce using rule 36 (expression)
+
+
+state 55
+
+   39 simple-expression: additive-expression . relop additive-expression
+   40                  | additive-expression .
+   47 additive-expression: additive-expression . addop term
+
+    TPLUS   shift, and go to state 68
+    TMINUS  shift, and go to state 69
+    TLT     shift, and go to state 70
+    TLTE    shift, and go to state 71
+    TGT     shift, and go to state 72
+    TGTE    shift, and go to state 73
+    TEQ     shift, and go to state 74
+    TNEQ    shift, and go to state 75
+
+    $default  reduce using rule 40 (simple-expression)
+
+    relop  go to state 76
+    addop  go to state 77
+
+
+state 56
+
+   48 additive-expression: term .
+   51 term: term . mulop factor
+
+    TMUL  shift, and go to state 78
+    TDIV  shift, and go to state 79
+
+    $default  reduce using rule 48 (additive-expression)
+
+    mulop  go to state 80
+
+
+state 57
+
+   52 term: factor .
+
+    $default  reduce using rule 52 (term)
+
+
+state 58
+
+   57 factor: call .
+
+    $default  reduce using rule 57 (factor)
+
+
+state 59
+
+   59 call: ID TLP . args TRP
+
+    NUM     shift, and go to state 38
+    ID      shift, and go to state 39
+    TLP     shift, and go to state 44
+    TEMPTY  shift, and go to state 81
+
+    expression           go to state 82
+    var                  go to state 53
+    simple-expression    go to state 54
+    additive-expression  go to state 55
+    term                 go to state 56
+    factor               go to state 57
+    call                 go to state 58
+    args                 go to state 83
+    arg-list             go to state 84
+
+
+state 60
+
+   38 var: ID TLSB . expression TRSB
+
+    NUM  shift, and go to state 38
+    ID   shift, and go to state 39
+    TLP  shift, and go to state 44
+
+    expression           go to state 85
+    var                  go to state 53
+    simple-expression    go to state 54
+    additive-expression  go to state 55
+    term                 go to state 56
+    factor               go to state 57
+    call                 go to state 58
+
+
+state 61
+
+   29 selection-stmt: TIF TLP . expression TRP statement subselection-stmt
+
+    NUM  shift, and go to state 38
+    ID   shift, and go to state 39
+    TLP  shift, and go to state 44
+
+    expression           go to state 86
+    var                  go to state 53
+    simple-expression    go to state 54
+    additive-expression  go to state 55
+    term                 go to state 56
+    factor               go to state 57
+    call                 go to state 58
+
+
+state 62
+
+   33 return-stmt: TRETURN TCOL .
+
+    $default  reduce using rule 33 (return-stmt)
+
+
+state 63
+
+   34 return-stmt: TRETURN expression . TCOL
+
+    TCOL  shift, and go to state 87
+
+
+state 64
+
+   32 iteration-stmt: TWHILE TLP . expression TRP statement
+
+    NUM  shift, and go to state 38
+    ID   shift, and go to state 39
+    TLP  shift, and go to state 44
+
+    expression           go to state 88
+    var                  go to state 53
+    simple-expression    go to state 54
+    additive-expression  go to state 55
+    term                 go to state 56
+    factor               go to state 57
+    call                 go to state 58
+
+
+state 65
+
+   55 factor: TLP expression . TRP
+
+    TRP  shift, and go to state 89
+
+
+state 66
+
+   27 expression-stmt: expression TCOL .
+
+    $default  reduce using rule 27 (expression-stmt)
+
+
+state 67
+
+   35 expression: var TASSIGN . expression
+
+    NUM  shift, and go to state 38
+    ID   shift, and go to state 39
+    TLP  shift, and go to state 44
+
+    expression           go to state 90
+    var                  go to state 53
+    simple-expression    go to state 54
+    additive-expression  go to state 55
+    term                 go to state 56
+    factor               go to state 57
+    call                 go to state 58
+
+
+state 68
+
+   49 addop: TPLUS .
+
+    $default  reduce using rule 49 (addop)
+
+
+state 69
+
+   50 addop: TMINUS .
+
+    $default  reduce using rule 50 (addop)
+
+
+state 70
+
+   42 relop: TLT .
+
+    $default  reduce using rule 42 (relop)
+
+
+state 71
+
+   41 relop: TLTE .
+
+    $default  reduce using rule 41 (relop)
+
+
+state 72
+
+   43 relop: TGT .
+
+    $default  reduce using rule 43 (relop)
+
+
+state 73
+
+   44 relop: TGTE .
+
+    $default  reduce using rule 44 (relop)
+
+
+state 74
+
+   45 relop: TEQ .
+
+    $default  reduce using rule 45 (relop)
+
+
+state 75
+
+   46 relop: TNEQ .
+
+    $default  reduce using rule 46 (relop)
+
+
+state 76
+
+   39 simple-expression: additive-expression relop . additive-expression
+
+    NUM  shift, and go to state 38
+    ID   shift, and go to state 39
+    TLP  shift, and go to state 44
+
+    var                  go to state 91
+    additive-expression  go to state 92
+    term                 go to state 56
+    factor               go to state 57
+    call                 go to state 58
+
+
+state 77
+
+   47 additive-expression: additive-expression addop . term
+
+    NUM  shift, and go to state 38
+    ID   shift, and go to state 39
+    TLP  shift, and go to state 44
+
+    var     go to state 91
+    term    go to state 93
+    factor  go to state 57
+    call    go to state 58
+
+
+state 78
+
+   53 mulop: TMUL .
+
+    $default  reduce using rule 53 (mulop)
+
+
+state 79
+
+   54 mulop: TDIV .
+
+    $default  reduce using rule 54 (mulop)
+
+
+state 80
+
+   51 term: term mulop . factor
+
+    NUM  shift, and go to state 38
+    ID   shift, and go to state 39
+    TLP  shift, and go to state 44
+
+    var     go to state 91
+    factor  go to state 94
+    call    go to state 58
+
+
+state 81
+
+   61 args: TEMPTY .
+
+    $default  reduce using rule 61 (args)
+
+
+state 82
+
+   63 arg-list: expression .
+
+    $default  reduce using rule 63 (arg-list)
+
+
+state 83
+
+   59 call: ID TLP args . TRP
+
+    TRP  shift, and go to state 95
+
+
+state 84
+
+   60 args: arg-list .
+   62 arg-list: arg-list . TCOM expression
+
+    TCOM  shift, and go to state 96
+
+    $default  reduce using rule 60 (args)
+
+
+state 85
+
+   38 var: ID TLSB expression . TRSB
+
+    TRSB  shift, and go to state 97
+
+
+state 86
+
+   29 selection-stmt: TIF TLP expression . TRP statement subselection-stmt
+
+    TRP  shift, and go to state 98
+
+
+state 87
+
+   34 return-stmt: TRETURN expression TCOL .
+
+    $default  reduce using rule 34 (return-stmt)
+
+
+state 88
+
+   32 iteration-stmt: TWHILE TLP expression . TRP statement
+
+    TRP  shift, and go to state 99
+
+
+state 89
+
+   55 factor: TLP expression TRP .
+
+    $default  reduce using rule 55 (factor)
+
+
+state 90
+
+   35 expression: var TASSIGN expression .
+
+    $default  reduce using rule 35 (expression)
+
+
+state 91
+
+   56 factor: var .
+
+    $default  reduce using rule 56 (factor)
+
+
+state 92
+
+   39 simple-expression: additive-expression relop additive-expression .
+   47 additive-expression: additive-expression . addop term
+
+    TPLUS   shift, and go to state 68
+    TMINUS  shift, and go to state 69
+
+    $default  reduce using rule 39 (simple-expression)
+
+    addop  go to state 77
+
+
+state 93
+
+   47 additive-expression: additive-expression addop term .
+   51 term: term . mulop factor
+
+    TMUL  shift, and go to state 78
+    TDIV  shift, and go to state 79
+
+    $default  reduce using rule 47 (additive-expression)
+
+    mulop  go to state 80
+
+
+state 94
+
+   51 term: term mulop factor .
+
+    $default  reduce using rule 51 (term)
+
+
+state 95
+
+   59 call: ID TLP args TRP .
+
+    $default  reduce using rule 59 (call)
+
+
+state 96
+
+   62 arg-list: arg-list TCOM . expression
+
+    NUM  shift, and go to state 38
+    ID   shift, and go to state 39
+    TLP  shift, and go to state 44
+
+    expression           go to state 100
+    var                  go to state 53
+    simple-expression    go to state 54
+    additive-expression  go to state 55
+    term                 go to state 56
+    factor               go to state 57
+    call                 go to state 58
+
+
+state 97
+
+   38 var: ID TLSB expression TRSB .
+
+    $default  reduce using rule 38 (var)
+
+
+state 98
+
+   29 selection-stmt: TIF TLP expression TRP . statement subselection-stmt
+
+    NUM      shift, and go to state 38
+    ID       shift, and go to state 39
+    TIF      shift, and go to state 40
+    TRETURN  shift, and go to state 41
+    TWHILE   shift, and go to state 42
+    TCOL     shift, and go to state 43
+    TLP      shift, and go to state 44
+    TLCB     shift, and go to state 26
+
+    compound-stmt        go to state 46
+    statement            go to state 101
+    expression-stmt      go to state 48
+    selection-stmt       go to state 49
+    iteration-stmt       go to state 50
+    return-stmt          go to state 51
+    expression           go to state 52
+    var                  go to state 53
+    simple-expression    go to state 54
+    additive-expression  go to state 55
+    term                 go to state 56
+    factor               go to state 57
+    call                 go to state 58
+
+
+state 99
+
+   32 iteration-stmt: TWHILE TLP expression TRP . statement
+
+    NUM      shift, and go to state 38
+    ID       shift, and go to state 39
+    TIF      shift, and go to state 40
+    TRETURN  shift, and go to state 41
+    TWHILE   shift, and go to state 42
+    TCOL     shift, and go to state 43
+    TLP      shift, and go to state 44
+    TLCB     shift, and go to state 26
+
+    compound-stmt        go to state 46
+    statement            go to state 102
+    expression-stmt      go to state 48
+    selection-stmt       go to state 49
+    iteration-stmt       go to state 50
+    return-stmt          go to state 51
+    expression           go to state 52
+    var                  go to state 53
+    simple-expression    go to state 54
+    additive-expression  go to state 55
+    term                 go to state 56
+    factor               go to state 57
+    call                 go to state 58
+
+
+state 100
+
+   62 arg-list: arg-list TCOM expression .
+
+    $default  reduce using rule 62 (arg-list)
+
+
+state 101
+
+   29 selection-stmt: TIF TLP expression TRP statement . subselection-stmt
+
+    TELSE   shift, and go to state 103
+    TEMPTY  shift, and go to state 104
+
+    subselection-stmt  go to state 105
+
+
+state 102
+
+   32 iteration-stmt: TWHILE TLP expression TRP statement .
+
+    $default  reduce using rule 32 (iteration-stmt)
+
+
+state 103
+
+   31 subselection-stmt: TELSE . statement
+
+    NUM      shift, and go to state 38
+    ID       shift, and go to state 39
+    TIF      shift, and go to state 40
+    TRETURN  shift, and go to state 41
+    TWHILE   shift, and go to state 42
+    TCOL     shift, and go to state 43
+    TLP      shift, and go to state 44
+    TLCB     shift, and go to state 26
+
+    compound-stmt        go to state 46
+    statement            go to state 106
+    expression-stmt      go to state 48
+    selection-stmt       go to state 49
+    iteration-stmt       go to state 50
+    return-stmt          go to state 51
+    expression           go to state 52
+    var                  go to state 53
+    simple-expression    go to state 54
+    additive-expression  go to state 55
+    term                 go to state 56
+    factor               go to state 57
+    call                 go to state 58
+
+
+state 104
+
+   30 subselection-stmt: TEMPTY .
+
+    $default  reduce using rule 30 (subselection-stmt)
+
+
+state 105
+
+   29 selection-stmt: TIF TLP expression TRP statement subselection-stmt .
+
+    $default  reduce using rule 29 (selection-stmt)
+
+
+state 106
+
+   31 subselection-stmt: TELSE statement .
+
+    $default  reduce using rule 31 (subselection-stmt)
