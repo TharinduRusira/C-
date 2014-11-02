@@ -54,13 +54,13 @@ int yyerror(const char *s);
 
 %%
 
-program:declaration-list
+program:declaration-list {printf("rule 1");}
 	;
-declaration-list:declaration-list declaration 
-	| declaration;
+declaration-list:declaration-list declaration {printf("rule 2-1");}
+	| declaration 
 	;
 declaration:var-declaration
-	|fun-declaration;
+	|fun-declaration
 	;
 var-declaration:type-specifier ID TCOL
 	|type-specifier ID TLSB NUM TLSB TCOL
@@ -125,7 +125,7 @@ relop:TLTE
 additive-expression:additive-expression addop term
 	|term
 	;
-addop:TPLUS
+addop:TPLUS 
 	|TMINUS
 	;
 term:term mulop factor
@@ -171,6 +171,6 @@ int main(){
 }
 
 int yyerror(const char *s){
-	cout << "Error While Parsing! : " << s << endl;
+	cout << "Parse ERROR! : " << s << endl;
 	return -1; // for now, we stop at the first error
 }

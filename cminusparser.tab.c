@@ -1488,17 +1488,24 @@ yyreduce:
   YY_REDUCE_PRINT (yyn);
   switch (yyn)
     {
-        case 36:
+        case 2:
 
 /* Line 1806 of yacc.c  */
-#line 109 "cminusparser.y"
-    {printf("I'm here");}
+#line 57 "cminusparser.y"
+    {printf("rule 1");}
+    break;
+
+  case 3:
+
+/* Line 1806 of yacc.c  */
+#line 59 "cminusparser.y"
+    {printf("rule 2-1");}
     break;
 
 
 
 /* Line 1806 of yacc.c  */
-#line 1502 "cminusparser.tab.c"
+#line 1509 "cminusparser.tab.c"
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -1754,7 +1761,7 @@ int main(){
 }
 
 int yyerror(const char *s){
-	cout << "Error While Parsing! : " << s << endl;
+	cout << "Parse ERROR! : " << s << endl;
 	return -1; // for now, we stop at the first error
 }
 
